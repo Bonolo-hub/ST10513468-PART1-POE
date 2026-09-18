@@ -4,6 +4,7 @@
 
 package com.mycompany.bonolompart1;
 
+import static com.mycompany.bonolompart1.LoginClass.loginUser;
 import java.util.Scanner;
 
 /**
@@ -15,19 +16,29 @@ public class BonoloMPart1 {
     public static void main(String[] args) {
         Scanner myInput = new Scanner(System.in);
         System.out.println("Hello World!");
-        //Declarations
+        //Declarations of variables used to register
+        String registeredUserName = "";
+        String registeredPassword = "";
+        String registeredNumber = "";
+        String firstName = "";
+        String surName = "";
         String userName = "";
-        String userPass = "";
-        String userCell = "";
         
-        //While loop for the Usernamess
-        while(!checkUserName(userName)){
+        //Prompt the user to enter their first name and last name
+        System.out.println("Please enter your first name: ");
+        firstName = myInput.nextLine();
+        System.out.println("Please enter your last name: ");
+        surName = myInput.nextLine();
+        
+        //While loop for the Username
+        while(!checkUserName(registeredUserName)){
             
             //Prompt the users
             System.out.println("Please enter your username: ");
-            userName = myInput.nextLine();
+            registeredUserName = myInput.nextLine();
             
-            if(!checkUserName(userName)){
+            
+            if(!checkUserName(registeredUserName)){
             System.out.println("Username is not correctly formatted");
             System.out.println("Please ensure that your username: ");
             System.out.println("-contains an underscore");
@@ -38,14 +49,13 @@ public class BonoloMPart1 {
         }
         System.out.println("Username successfully captured");
         //While loop for the Password
-        while(!checkPasswordComplexity(userPass)){
+        while(!checkPasswordComplexity(registeredPassword)){
         
         //Prompt the user for the password
         System.out.println("Please enter your password");
-        userPass = myInput.nextLine();
-        //donkeys
+        registeredPassword = myInput.nextLine();
         
-        if(!checkPasswordComplexity(userPass)){
+        if(!checkPasswordComplexity(registeredPassword)){
         System.out.println("Password is not correctly formatted");
         System.out.println("Please ensure that your password: ");
         System.out.println("-contains atleast eight characters");
@@ -58,44 +68,64 @@ public class BonoloMPart1 {
         }
         System.out.println("Password successfully captured");
         
-        //
-        while(!checkCellPhoneNumber(userCell)){
+        //While for Password
+        while(!checkCellPhoneNumber(registeredNumber)){
             //Prompt the user
             System.out.println("Please enter your cellphone number starts with (+27...): ");
-            userCell = myInput.nextLine();
+            registeredNumber = myInput.nextLine();
 
-            if(!checkCellPhoneNumber(userCell)){
+            if(!checkCellPhoneNumber(registeredNumber)){
                 System.out.println("Cell phone number incorrectly formatted or does not contain international code");
             }else{
                 break;
             }
         }
-        System.out.println("Cell phone number successfully added");
+        
+        LoginClass LoginClass = new LoginClass(registeredUserName, firstName, surName, registeredPassword, registeredNumber);
+        System.out.println(LoginClass.registerUser());
+        //Prompt the user to enter the details to login
+        System.out.println("Please login:");
+        System.out.println("Enter username: ");
+        userName = myInput.nextLine();
+        System.out.println("Enter password: ");
+        String userPassword = myInput.nextLine();
+
+        System.out.println((LoginClass.returnLoginStatus(registeredUserName, registeredPassword, userName, userPassword, firstName, surName)));
+        
+        myInput.close();
+        while(loginUser(registeredUserName, userName, registeredPassword, userPassword)){
+            
+            if(loginUser(registeredUserName,registeredPassword,userName, userPassword)){
+               System.out.println("Username or password incorrect, please try again.");
+            }else{
+                break;
+            }
+        }
     }
     //Method to check for the validity of the username
-    public static boolean checkUserName(String userName){
+    public static boolean checkUserName(String registeredUserName){
         
-        if(userName.length() <= 5 && userName.contains("_")){
+        if(registeredUserName.length() <= 5 && registeredUserName.contains("_")){
             return true;
         } else{
             return false;
         }
     }
     //Mehtod to check for the valdidty of the password
-    public static boolean checkPasswordComplexity(String userPass){
+    public static boolean checkPasswordComplexity(String registeredPassword){
         //Declarations for password check
         boolean containsCapitalLetter = false;
         boolean containsNumber = false;
         boolean containsSpecial = false;
         
         //If statement to check for the length of the password
-        if(userPass.length() < 8){
+        if(registeredPassword.length() < 8){
             return false;
         }
 
         //Loop to Check each character
-        for(int i = 0; i < userPass.length(); i++){
-            char character = userPass.charAt(i);
+        for(int i = 0; i < registeredPassword.length(); i++){
+            char character = registeredPassword.charAt(i);
             if(Character.isUpperCase(character)){
                 containsCapitalLetter = true;
             }else if(Character.isDigit(character)){
@@ -111,12 +141,14 @@ public class BonoloMPart1 {
             return false;
         }
     }
-    public static boolean checkCellPhoneNumber(String userCell){
+    //Method to validate the cellphone number with the code
+    public static boolean checkCellPhoneNumber(String registeredNumber){
         //if statement to shdd
-        if(userCell.startsWith("+27") && userCell.length() == 12){
+        if(registeredNumber.startsWith("+27") && registeredNumber.length() == 12){
             return true;
         }else{
             return false;
         }
     }
+    
 }
