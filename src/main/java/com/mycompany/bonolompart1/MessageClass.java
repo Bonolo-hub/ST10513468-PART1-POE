@@ -99,7 +99,7 @@ public class MessageClass {
         return totalMessSent;
     }
 
-    // FIX 3: This method was missing - caused your error
+    //Method with JSON
     public void storeMessage() {
         try{
             FileWriter file = new FileWriter("storedMessages.json", true);
@@ -111,4 +111,4 @@ public class MessageClass {
             System.out.println("Error storing message: " + e.getMessage());
         }
     }
-} // final bracket
+}
