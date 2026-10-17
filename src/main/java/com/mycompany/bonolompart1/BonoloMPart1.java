@@ -68,7 +68,7 @@ public class BonoloMPart1 {
         }
         System.out.println("Password successfully captured");
         
-        //While for Password
+        //While for Cellphone
         while(!checkCellPhoneNumber(registeredNumber)){
             //Prompt the user
             System.out.println("Please enter your cellphone number starts with (+27...): ");
@@ -81,8 +81,8 @@ public class BonoloMPart1 {
             }
         }
         
-        LoginClass LoginClass = new LoginClass(registeredUserName, firstName, surName, registeredPassword, registeredNumber);
-        System.out.println(LoginClass.registerUser());
+        LoginClass myLogin = new LoginClass(registeredUserName, firstName, surName, registeredPassword, registeredNumber);
+        System.out.println(myLogin.registerUser());
         //Prompt the user to enter the details to login
         System.out.println("Please login:");
         System.out.println("Enter username: ");
@@ -90,10 +90,10 @@ public class BonoloMPart1 {
         System.out.println("Enter password: ");
         String userPassword = myInput.nextLine();
 
-        System.out.println((LoginClass.returnLoginStatus(registeredUserName, registeredPassword, userName, userPassword, firstName, surName)));
+        System.out.println((myLogin.returnLoginStatus(registeredUserName, registeredPassword, userName, userPassword, firstName, surName)));
         
         myInput.close();
-        while(loginUser(registeredUserName, userName, registeredPassword, userPassword)){
+        while(!loginUser(registeredUserName, userName, registeredPassword, userPassword)){
             
             if(loginUser(registeredUserName,registeredPassword,userName, userPassword)){
                System.out.println("Username or password incorrect, please try again.");
@@ -101,6 +101,71 @@ public class BonoloMPart1 {
                 break;
             }
         }
+                // ===== PART 2 - QUICKCHAT =====
+        System.out.println("\nWelcome to QuickChat!");
+        //Ask the user how many messages they would like to enter
+        System.out.println("How many messages do you want to send?");
+        int total = myInput.nextInt();
+        myInput.nextLine();
+
+        for(int i = 0; i < total; i++){
+            System.out.println("\n--- Message " + (i+1) + " of " + total + " ---");
+            
+            System.out.print("Enter Message ID (max 10 chars, e.g. 0012345678): ");
+            String id = myInput.nextLine();
+            
+            System.out.print("Enter recipient cell (+27): ");
+            String recip = myInput.nextLine();
+            
+            System.out.print("Enter your message (max 250 characters): ");
+            String msg = myInput.nextLine();
+            
+            MessageClass myMsg = new MessageClass(id, i+1, recip, msg);
+            
+            if(!myMsg.checkMessageID()){
+                System.out.println("Message ID is too long. Must be <=10 chars.");
+                i--; 
+                continue;
+            }
+            if(!myMsg.checkRecipientCell()){
+                System.out.println("Cell phone number incorrectly formatted or does not contain international code.");
+                i--;
+                continue;
+            }
+            if(msg.length() > 250){
+                System.out.println("Please enter a message of less than 250 characters. Your message is " + (msg.length()-250) + " chars too long.");
+                i--;
+                continue;
+            }
+            
+            System.out.println("\nMessage Details:");
+            System.out.println(myMsg.printMessage());
+            
+            System.out.println("\nWhat do you want to do?");
+            System.out.println("1) Send Message");
+            System.out.println("2) Disregard Message");
+            System.out.println("3) Store Message");
+            System.out.print("Choice: ");
+            int choice = myInput.nextInt();
+            myInput.nextLine();
+            
+            System.out.println(myMsg.SentMessage(choice));
+        }
+
+        System.out.println("\n--- Summary ---");
+        System.out.println("Total messages sent: " + MessageClass.returnTotalMessages());
+        
+        if(!MessageClass.sentMessages.isEmpty()){
+            System.out.println("\nAll sent messages:");
+            for(MessageClass m : MessageClass.sentMessages){
+                System.out.println(m.printMessages());
+                System.out.println("--------------");
+            }
+        } else {
+            System.out.println("No messages were sent.");
+        }
+        
+        myInput.close();
     }
     //Method to check for the validity of the username
     public static boolean checkUserName(String registeredUserName){
@@ -150,5 +215,5 @@ public class BonoloMPart1 {
             return false;
         }
     }
-    
+ 
 }
