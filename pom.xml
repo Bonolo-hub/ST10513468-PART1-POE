@@ -18,4 +18,5 @@
         <maven.compiler.release>26</maven.compiler.release>
         <exec.mainClass>com.mycompany.bonolompart1.BonoloMPart1</exec.mainClass>
     </properties>
+    <name>BonoloMPOE</name>
 </project>
