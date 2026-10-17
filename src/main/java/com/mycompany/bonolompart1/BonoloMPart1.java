@@ -17,6 +17,7 @@ public class BonoloMPart1 {
         Scanner myInput = new Scanner(System.in);
         
         // ===== PART 1 - REGISTRATION =====
+        //Declaration of variables
         String registeredUserName = "";
         String registeredPassword = "";
         String registeredNumber = "";
@@ -95,7 +96,7 @@ public class BonoloMPart1 {
             return;
         }
 
-        // ===== PART 2 - QUICKCHAT =====
+        // ===== PART 2 of the POE- QUICKCHAT =====
         System.out.println("\nWelcome to QuickChat!");
         
         System.out.println("How many messages do you want to send?");
