@@ -4,76 +4,63 @@
 
 package com.mycompany.bonolompart1;
 
-import static com.mycompany.bonolompart1.LoginClass.loginUser;
-import java.util.Scanner;
-
 /**
  *
  * @author males
  */
+
+import java.util.Scanner;
+
 public class BonoloMPart1 {
 
     public static void main(String[] args) {
         Scanner myInput = new Scanner(System.in);
-        System.out.println("Hello World!");
-        //Declarations of variables used to register
+        
+        // ===== PART 1 - REGISTRATION =====
         String registeredUserName = "";
         String registeredPassword = "";
         String registeredNumber = "";
         String firstName = "";
         String surName = "";
-        String userName = "";
         
-        //Prompt the user to enter their first name and last name
         System.out.println("Please enter your first name: ");
         firstName = myInput.nextLine();
         System.out.println("Please enter your last name: ");
         surName = myInput.nextLine();
         
-        //While loop for the Username
         while(!checkUserName(registeredUserName)){
-            
-            //Prompt the users
             System.out.println("Please enter your username: ");
             registeredUserName = myInput.nextLine();
-            
-            
             if(!checkUserName(registeredUserName)){
-            System.out.println("Username is not correctly formatted");
-            System.out.println("Please ensure that your username: ");
-            System.out.println("-contains an underscore");
-            System.out.println("-is no more than five characters in length");
+                System.out.println("Username is not correctly formatted");
+                System.out.println("Please ensure that your username: ");
+                System.out.println("-contains an underscore");
+                System.out.println("-is no more than five characters in length");
             }else{
-            break;
+                break;
             }
         }
         System.out.println("Username successfully captured");
-        //While loop for the Password
+        
         while(!checkPasswordComplexity(registeredPassword)){
-        
-        //Prompt the user for the password
-        System.out.println("Please enter your password");
-        registeredPassword = myInput.nextLine();
-        
-        if(!checkPasswordComplexity(registeredPassword)){
-        System.out.println("Password is not correctly formatted");
-        System.out.println("Please ensure that your password: ");
-        System.out.println("-contains atleast eight characters");
-        System.out.println("-contains a capital letter");
-        System.out.println("-contains a number");
-        System.out.println("-contains a special characterr");
-        }else{
-        break;
-        }
+            System.out.println("Please enter your password");
+            registeredPassword = myInput.nextLine();
+            if(!checkPasswordComplexity(registeredPassword)){
+                System.out.println("Password is not correctly formatted");
+                System.out.println("Please ensure that your password: ");
+                System.out.println("-contains atleast eight characters");
+                System.out.println("-contains a capital letter");
+                System.out.println("-contains a number");
+                System.out.println("-contains a special character");
+            }else{
+                break;
+            }
         }
         System.out.println("Password successfully captured");
         
-        //While for Cellphone
         while(!checkCellPhoneNumber(registeredNumber)){
-            //Prompt the user
             System.out.println("Please enter your cellphone number starts with (+27...): ");
             registeredNumber = myInput.nextLine();
-
             if(!checkCellPhoneNumber(registeredNumber)){
                 System.out.println("Cell phone number incorrectly formatted or does not contain international code");
             }else{
@@ -83,30 +70,37 @@ public class BonoloMPart1 {
         
         LoginClass myLogin = new LoginClass(registeredUserName, firstName, surName, registeredPassword, registeredNumber);
         System.out.println(myLogin.registerUser());
-        //Prompt the user to enter the details to login
-        System.out.println("Please login:");
+        
+        // ===== LOGIN =====
+        System.out.println("\n--- Please login: ---");
         System.out.println("Enter username: ");
-        userName = myInput.nextLine();
+        String userName = myInput.nextLine();
         System.out.println("Enter password: ");
         String userPassword = myInput.nextLine();
 
-        System.out.println((myLogin.returnLoginStatus(registeredUserName, registeredPassword, userName, userPassword, firstName, surName)));
-        
-        myInput.close();
-        while(!loginUser(registeredUserName, userName, registeredPassword, userPassword)){
-            
-            if(loginUser(registeredUserName,registeredPassword,userName, userPassword)){
-               System.out.println("Username or password incorrect, please try again.");
-            }else{
-                break;
-            }
+        if(!loginUser(registeredUserName, registeredPassword, userName, userPassword)){
+            System.out.println("Username or password incorrect, please try again.");
+            System.out.println("Enter username: ");
+            userName = myInput.nextLine();
+            System.out.println("Enter password: ");
+            userPassword = myInput.nextLine();
         }
-                // ===== PART 2 - QUICKCHAT =====
+        
+        System.out.println(myLogin.returnLoginStatus(registeredUserName, registeredPassword, userName, userPassword, firstName, surName));
+        
+        // Check if login failed - stop if failed
+        if(!loginUser(registeredUserName, registeredPassword, userName, userPassword)){
+            System.out.println("Login failed. Exiting.");
+            myInput.close();
+            return;
+        }
+
+        // ===== PART 2 - QUICKCHAT =====
         System.out.println("\nWelcome to QuickChat!");
-        //Ask the user how many messages they would like to enter
+        
         System.out.println("How many messages do you want to send?");
         int total = myInput.nextInt();
-        myInput.nextLine();
+        myInput.nextLine(); // clear enter
 
         for(int i = 0; i < total; i++){
             System.out.println("\n--- Message " + (i+1) + " of " + total + " ---");
@@ -114,10 +108,10 @@ public class BonoloMPart1 {
             System.out.print("Enter Message ID (max 10 chars, e.g. 0012345678): ");
             String id = myInput.nextLine();
             
-            System.out.print("Enter recipient cell (+27): ");
+            System.out.print("Enter recipient cell (+27... max 13 chars): ");
             String recip = myInput.nextLine();
             
-            System.out.print("Enter your message (max 250 characters): ");
+            System.out.print("Enter your message (max 250 chars): ");
             String msg = myInput.nextLine();
             
             MessageClass myMsg = new MessageClass(id, i+1, recip, msg);
@@ -155,7 +149,7 @@ public class BonoloMPart1 {
         System.out.println("\n--- Summary ---");
         System.out.println("Total messages sent: " + MessageClass.returnTotalMessages());
         
-        if(!MessageClass.sentMessages.isEmpty()){
+        if(MessageClass.sentMessages.size() > 0){
             System.out.println("\nAll sent messages:");
             for(MessageClass m : MessageClass.sentMessages){
                 System.out.println(m.printMessages());
@@ -167,28 +161,25 @@ public class BonoloMPart1 {
         
         myInput.close();
     }
-    //Method to check for the validity of the username
+    
+    // Helper methods
     public static boolean checkUserName(String registeredUserName){
-        
         if(registeredUserName.length() <= 5 && registeredUserName.contains("_")){
             return true;
         } else{
             return false;
         }
     }
-    //Mehtod to check for the valdidty of the password
+    
     public static boolean checkPasswordComplexity(String registeredPassword){
-        //Declarations for password check
         boolean containsCapitalLetter = false;
         boolean containsNumber = false;
         boolean containsSpecial = false;
         
-        //If statement to check for the length of the password
         if(registeredPassword.length() < 8){
             return false;
         }
 
-        //Loop to Check each character
         for(int i = 0; i < registeredPassword.length(); i++){
             char character = registeredPassword.charAt(i);
             if(Character.isUpperCase(character)){
@@ -199,21 +190,18 @@ public class BonoloMPart1 {
                 containsSpecial = true;
             }
         }
-        //if statement to show if conditions are met
-        if(containsCapitalLetter && containsNumber && containsSpecial){
-            return true;
-        }else{
-            return false;
-        }
+        return containsCapitalLetter && containsNumber && containsSpecial;
     }
-    //Method to validate the cellphone number with the code
+    
     public static boolean checkCellPhoneNumber(String registeredNumber){
-        //if statement to shdd
         if(registeredNumber.startsWith("+27") && registeredNumber.length() == 12){
             return true;
         }else{
             return false;
         }
     }
- 
+
+    public static boolean loginUser(String registeredUserName, String registeredPassword, String userName, String userPassword){
+        return registeredUserName.equals(userName) && registeredPassword.equals(userPassword);
+    }
 }
