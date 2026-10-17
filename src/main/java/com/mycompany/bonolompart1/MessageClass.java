@@ -111,4 +111,4 @@ public class MessageClass {
             System.out.println("Error storing message: " + e.getMessage());
         }
     }
-}
+} // final bracket
