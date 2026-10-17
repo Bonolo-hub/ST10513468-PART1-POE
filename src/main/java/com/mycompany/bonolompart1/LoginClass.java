@@ -82,7 +82,6 @@ public class LoginClass {
         }
     }
     
-    // FIX 2: Parameter order was wrong - must match BonoloMPart1 call
     public static boolean loginUser(String registeredUserName, String registeredPassword, String usersName, String userPassword){
         if(registeredUserName.equals(usersName) && registeredPassword.equals(userPassword)){
             return true;
@@ -98,4 +97,4 @@ public class LoginClass {
             return "Username or password incorrect, please try again.";
         }
     }
-} // FIX 3: You were missing this last closing bracket
+}
