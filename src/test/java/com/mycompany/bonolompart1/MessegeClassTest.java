@@ -19,14 +19,11 @@ public class MessegeClassTest {
         MessageClass.totalMessSent = 0;
     }
 
-    // ===== POE PAGE 14 TEST DATA =====
-    // Test Data Message 1 - Should be valid
     String id1 = "0012345678";
     int num1 = 0;
     String recip1 = "+27718693002";
     String msg1 = "Hi Mike, can you join us for dinner tonight?";
 
-    // Test Data Message 2 - Should be invalid recipient
     String id2 = "0012345679";
     int num2 = 1;
     String recip2 = "08575975889";
@@ -60,9 +57,6 @@ public class MessegeClassTest {
 
     @Test
     public void testCreateMessageHash_Page15() {
-        // From Part 3 Page 15: should produce 00:0:HITONIGHT
-        // Your method: first 2 of ID + ":" + num + ":" + firstWord+lastWord uppercase
-        // So we use ID starting with 00 and num 0
         MessageClass message = new MessageClass("0012345678", 0, recip1, msg1);
         String expected = "00:0:HITONIGHT";
         String actual = message.createMessageHash();
@@ -72,7 +66,6 @@ public class MessegeClassTest {
     @Test
     public void testCreateMessageHash_Message2() {
         MessageClass message = new MessageClass("0012345679", 1, recip2, msg2);
-        // firstWord=Hi, lastWord=payment, ID 00, num 1 -> 00:1:HIPAYMENT
         String hash = message.createMessageHash();
         assertEquals("00:1:HIPAYMENT", hash);
     }
