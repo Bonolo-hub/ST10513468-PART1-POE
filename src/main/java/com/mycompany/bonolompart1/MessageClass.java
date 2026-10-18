@@ -99,7 +99,7 @@ public class MessageClass {
         return totalMessSent;
     }
 
-    //Method with JSON
+    //Method with JSON which i researched
     public void storeMessage() {
         try{
             FileWriter file = new FileWriter("storedMessages.json", true);
