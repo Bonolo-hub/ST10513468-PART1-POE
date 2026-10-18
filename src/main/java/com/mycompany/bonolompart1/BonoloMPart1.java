@@ -73,7 +73,7 @@ public class BonoloMPart1 {
         System.out.println(myLogin.registerUser());
         
         // ===== LOGIN =====
-        System.out.println("\n--- Please login: ---");
+        System.out.println("Please login: ");
         System.out.println("Enter username: ");
         String userName = myInput.nextLine();
         System.out.println("Enter password: ");
@@ -91,25 +91,25 @@ public class BonoloMPart1 {
         
         // Check if login failed - stop if failed
         if(!loginUser(registeredUserName, registeredPassword, userName, userPassword)){
-            System.out.println("Login failed. Exiting.");
+            System.out.println("Login failed");
             myInput.close();
             return;
         }
 
         // ===== PART 2 of the POE- QUICKCHAT =====
-        System.out.println("\nWelcome to QuickChat!");
+        System.out.println("Welcome to QuickChat!");
         
-        System.out.println("How many messages do you want to send?");
+        System.out.println("How many messages would you like to sendsend?");
         int total = myInput.nextInt();
-        myInput.nextLine(); // clear enter
+        myInput.nextLine(); 
 
         for(int i = 0; i < total; i++){
             System.out.println("\n--- Message " + (i+1) + " of " + total + " ---");
             
-            System.out.print("Enter Message ID (max 10 chars, e.g. 0012345678): ");
+            System.out.print("Please enter a message ID(maximum 10 characters: ");
             String id = myInput.nextLine();
             
-            System.out.print("Enter recipient cell (+27... max 13 chars): ");
+            System.out.print("Enter recipient cell (+27): ");
             String recip = myInput.nextLine();
             
             System.out.print("Enter your message (max 250 chars): ");
@@ -128,7 +128,7 @@ public class BonoloMPart1 {
                 continue;
             }
             if(msg.length() > 250){
-                System.out.println("Please enter a message of less than 250 characters. Your message is " + (msg.length()-250) + " chars too long.");
+                System.out.println("Please enter your message");
                 i--;
                 continue;
             }
@@ -136,7 +136,7 @@ public class BonoloMPart1 {
             System.out.println("\nMessage Details:");
             System.out.println(myMsg.printMessage());
             
-            System.out.println("\nWhat do you want to do?");
+            System.out.println("What do you want to do?");
             System.out.println("1) Send Message");
             System.out.println("2) Disregard Message");
             System.out.println("3) Store Message");
