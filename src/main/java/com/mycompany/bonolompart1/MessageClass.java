@@ -10,7 +10,7 @@ package com.mycompany.bonolompart1;
  */
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList; // FIX 1: you were missing imports
+import java.util.ArrayList;
 
 public class MessageClass {
     //Declarations
@@ -19,7 +19,7 @@ public class MessageClass {
     String shortMessage;
     String messageHash;
     int numOfMess;
-    static int totalMessSent = 0; // FIX 2: you were missing ; here
+    static int totalMessSent = 0;
     
     //ArrayLists for storing, disregarding and sending
     static ArrayList<MessageClass> sentMessages = new ArrayList<>();
