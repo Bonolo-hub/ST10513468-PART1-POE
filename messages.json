@@ -1,2 +1,4 @@
 {"messageID":"MSG002","messageHash":"MS:2:WHERETIME","recipient":"+27838884567","message":"Where are you? You are late! I have asked you to be on time."}
 {"messageID":"MSG005","messageHash":"MS:5:OKYOU","recipient":"+27838884567","message":"Ok, I am leaving without you."}
+{"messageID":"1234567","messageHash":"12:1:WHERETIME","recipient":"+27838884567","message":"Where are you? You are late i have asked you to be on time"}
+{"messageID":"1234567890","messageHash":"12:1:OKYOU","recipient":"+27838884567","message":"oK, i AM 	LEAVING WITHOUT YOU"}
